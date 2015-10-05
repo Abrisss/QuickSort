@@ -2,50 +2,61 @@ package algorithm;
 
 import utility.MyArrayList;
 
-import java.util.ArrayList;
+import java.util.Random;
 
 
 /**
  * Created by Abraham on 2015. 10. 01..
  */
 public class QuickSort {
-    int k;
+    int number;
+    MyArrayList<Integer> numbers;
 
-    public QuickSort(int k) {
-        this.k = k;
-    }
 
-    public void quickSort(MyArrayList<Integer> numbers) {
-        if (!numbers.isEmpty() && k > 0) {
-            int k = movingToRightPlace(numbers);
-            quickSort(numbers.getSubArray(0, k));
-            quickSort(numbers.getSubArray(k, numbers.size()));
+    public MyArrayList sort(MyArrayList<Integer> numbers) {
+        if (numbers == null || numbers.isEmpty()) {
+            return null;
         }
+
+        this.numbers = numbers;
+        number = numbers.size();
+        quickSort(0, number - 1);
+        return numbers;
     }
 
-    public int movingToRightPlace(MyArrayList<Integer> numbers) {
-        int u = 0;
-        int v = numbers.size()-1;
-        int i = u + 1;
-        int j = v;
+    public void quickSort(int low, int high) {
+        int i = low;
+        int j = high;
 
+        // A pivot elem véletlen kiválasztása.
+        int pivot = numbers.get(new Random().nextInt(high));
+
+
+        // Két listára bontás
         while (i <= j) {
-            while (i <= v && numbers.get(i) <= numbers.get(u)) {
+
+            // Ha a jelenlegi elem a bal listából kisebb, mint a pivot, akkor menjünk a következõ elemre a bal listában
+            while (numbers.get(i) < pivot) {
                 i++;
             }
 
-            while (u + 1 <= j && numbers.get(u) <= numbers.get(j)) {
+            // Ha a jelenlegi elem a jobb listából nagyobb, mint a pivot, akkor menjünk a következõ elemre a jobb listában
+            while (numbers.get(j) > pivot) {
                 j--;
             }
 
-            if (i < j) {
+            //Ha találtunk egy elemet a bal listában, ami nagyobb, mint a pivot, és egy elemet a jobb listában, ami
+            // kisebb, mint a pivot, akkor kicseréljük ezeket az elemeket, és megnöveljük i-t és j-t.
+            if (i <= j) {
                 numbers.swap(i, j);
                 i++;
                 j--;
             }
         }
-        numbers.swap(u, i - 1);
-
-        return i - 1;
+        // Rekurzív
+        if (low < j)
+            quickSort(low, j);
+        if (i < high)
+            quickSort(i, high);
     }
 }
