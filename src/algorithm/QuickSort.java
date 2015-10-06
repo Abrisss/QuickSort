@@ -29,7 +29,7 @@ public class QuickSort {
         int j = high;
 
         // A pivot elem véletlen kiválasztása.
-        int pivot = numbers.get(new Random().nextInt(high));
+        Integer pivot = numbers.get(new Random().nextInt(high));
 
 
         // Két listára bontás
