@@ -22,8 +22,8 @@ public class NumberReader {
         parser = new JSONParser();
     }
 
-    public MyArrayList<Integer> parseNumbers(String fileName) {
-        MyArrayList<Integer> returnThings = null;
+    public MyArrayList<MyNumber> parseNumbers(String fileName) {
+        MyArrayList<MyNumber> returnThings = null;
         try {
             File file = loadFile(fileName);
             Object obj = parser.parse(new FileReader(file));
@@ -33,7 +33,7 @@ public class NumberReader {
             JSONArray thingsArray = (JSONArray) jsonObject.get("numbers");
             Iterator<Long> thingsIterator = thingsArray.iterator();
             while (thingsIterator.hasNext()) {
-                returnThings.add(thingsIterator.next().intValue());
+                returnThings.add(new MyNumber(thingsIterator.next().intValue()));
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
