@@ -22,11 +22,9 @@ public class InputPanel extends JPanel implements ActionListener {
     private String fileName;
 
     private JButton algoBtn;
-    private JButton lastBinAlgoBtn;
     private JButton stopBtn;
     private JButton resumeBtn;
     private JButton instantlyAlgoBtn;
-    private JButton instantlyLastBinBtn;
 
     public InputPanel(NumberReader numberReader, Board board) {
         this.numberReader = numberReader;
@@ -131,7 +129,7 @@ public class InputPanel extends JPanel implements ActionListener {
 
     private void runAlgorithm(boolean isInstantlyPaint) {
         QuickSort quickSort = new QuickSort();
-        MyArrayList<MyNumber> myArrayList = numberReader.parseNumbers(fileName);
+        MyArrayList myArrayList = numberReader.parseNumbers(fileName);
 
         for (Object object : quickSort.sort(myArrayList)) {
             MyNumber myNumber = (MyNumber) object;

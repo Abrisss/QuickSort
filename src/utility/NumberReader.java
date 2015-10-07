@@ -22,13 +22,13 @@ public class NumberReader {
         parser = new JSONParser();
     }
 
-    public MyArrayList<MyNumber> parseNumbers(String fileName) {
-        MyArrayList<MyNumber> returnThings = null;
+    public MyArrayList parseNumbers(String fileName) {
+        MyArrayList returnThings = null;
         try {
             File file = loadFile(fileName);
             Object obj = parser.parse(new FileReader(file));
             JSONObject jsonObject = (JSONObject) obj;
-            returnThings = new MyArrayList<>();
+            returnThings = new MyArrayList();
 
             JSONArray thingsArray = (JSONArray) jsonObject.get("numbers");
             Iterator<Long> thingsIterator = thingsArray.iterator();

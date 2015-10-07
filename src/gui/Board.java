@@ -7,16 +7,17 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class Board extends JPanel implements ActionListener {
 
     Timer timer;
-    final int size = 77;
+    final int size = 66;
     final int speed = 1000;
     final int pause = 1000;
-    MyArrayList<MyArrayList<MyNumber>> allState;
+    ArrayList<MyArrayList> allState;
     int rowNumber;
     int columnNumber;
     boolean isInstantlyPaint;
@@ -29,7 +30,7 @@ public class Board extends JPanel implements ActionListener {
         isInstantlyPaint = false;
     }
 
-    public void init(MyArrayList<MyArrayList<MyNumber>> allState, boolean isInstantlyPaint) {
+    public void init(ArrayList<MyArrayList> allState, boolean isInstantlyPaint) {
         this.allState = allState;
         this.isInstantlyPaint = isInstantlyPaint;
         stateNumber = 0;
@@ -59,16 +60,18 @@ public class Board extends JPanel implements ActionListener {
     }
 
     private void paintStates(Graphics2D g2d) {
-        List<MyNumber> numbers = allState.get(stateNumber);
-        for (int i = 0; i < numbers.size(); i++) {
-            MyNumber actNumber = numbers.get(i);
+        for (int i = 0; i < stateNumber; i++) {
+            List<MyNumber> numbers = allState.get(i);
+            for (int j = 0; j < numbers.size(); j++) {
+                MyNumber actNumber = numbers.get(j);
 
-            setColor(g2d, actNumber);
+                setColor(g2d, actNumber);
 
-            int actBinX = i + 1;
-            int actBinY = stateNumber + 1;
+                int actBinX = j + 1;
+                int actBinY = i + 1;
 
-            paintNumber(g2d, actBinX, actBinY);
+                paintNumber(g2d, actBinX, actBinY, actNumber.getValue());
+            }
         }
     }
 
@@ -84,24 +87,28 @@ public class Board extends JPanel implements ActionListener {
         }
     }
 
-    private void paintNumber(Graphics2D g2d, int actBinX, int actBinY) {
+    private void paintNumber(Graphics2D g2d, int actBinX, int actBinY, int value) {
         g2d.setStroke(new BasicStroke(6));
         g2d.drawRect(actBinX * (size + 10) + 10,
                 actBinY * (size + 10), size, size);
+        g2d.setFont(new Font("TimesRoman", Font.PLAIN, 30));
+        g2d.drawString(Integer.toString(value),
+                actBinX * (size + 10) + 35,
+                (actBinY) * (size + 10) + 35);
     }
 
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (!isInstantlyPaint) {
-            if (allState.size() < stateNumber) {
+            if (allState.size() - 1 > stateNumber) {
                 drawBoard();
                 stateNumber++;
             } else {
                 timer.stop();
             }
-            repaint();
+//            repaint();
         } else if (isInstantlyPaint) {
-            while (allState.size() < stateNumber) {
+            while (allState.size() - 1 > stateNumber) {
                 drawBoard();
                 stateNumber++;
             }
