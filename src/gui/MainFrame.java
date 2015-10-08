@@ -8,11 +8,12 @@ import java.awt.*;
 public class MainFrame extends JFrame {
 
     JPanel container;
-    Board board;
     InputPanel inputPanel;
     JScrollPane pane;
+    Board board;
+    NumberReader numberReader;
 
-    public MainFrame(NumberReader numberReader) {
+    public MainFrame() {
         setTitle("Quicksort Algorithm");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(1366, 700);
@@ -22,6 +23,7 @@ public class MainFrame extends JFrame {
         container.setLayout(new BorderLayout());
 
         board = new Board();
+        numberReader = new NumberReader();
         inputPanel = new InputPanel(numberReader, board);
         container.add(inputPanel, BorderLayout.SOUTH);
 

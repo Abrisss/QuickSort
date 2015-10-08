@@ -1,7 +1,6 @@
 package algorithm;
 
 import utility.MyArrayList;
-import utility.MyNumber;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -37,7 +36,7 @@ public class QuickSort {
 
 
 
-        // A pivot elem véletlen kiválasztása.
+        // A pivot elem vï¿½letlen kivï¿½lasztï¿½sa.
         int randomValue = new Random().nextInt(high);
         Integer pivot = numbers.get(randomValue).getValue();
 
@@ -47,25 +46,25 @@ public class QuickSort {
         allState.add(new MyArrayList(numbers));
 
 
-        // Két listára bontás
+        // Ket listara bontas
         while (i <= j) {
 
-            // Ha a jelenlegi elem a bal listából kisebb, mint a pivot, akkor menjünk a következõ elemre a bal listában
+            // Ha a jelenlegi elem a bal listabol kisebb, mint a pivot, akkor menjunk a kovetkezo elemre a bal listaban
             while (numbers.get(i).getValue() < pivot) {
                 i++;
                 numbers.setI(i);
                 allState.add(new MyArrayList(numbers));
             }
 
-            // Ha a jelenlegi elem a jobb listából nagyobb, mint a pivot, akkor menjünk a következõ elemre a jobb listában
+            // Ha a jelenlegi elem a jobb listabal nagyobb, mint a pivot, akkor menjunk a kovetkezo elemre a jobb listaban
             while (numbers.get(j).getValue() > pivot) {
                 j--;
                 numbers.setJ(j);
                 allState.add(new MyArrayList(numbers));
             }
 
-            //Ha találtunk egy elemet a bal listában, ami nagyobb, mint a pivot, és egy elemet a jobb listában, ami
-            // kisebb, mint a pivot, akkor kicseréljük ezeket az elemeket, és megnöveljük i-t és j-t.
+            //Ha talaltunk egy elemet a bal listaban, ami nagyobb, mint a pivot, es egy elemet a jobb listaban, ami
+            // kisebb, mint a pivot, akkor kicseruljuk ezeket az elemeket, es megnoveljuk i-t es j-t.
             if (i <= j) {
                 numbers.swap(i, j);
                 allState.add(new MyArrayList(numbers));
@@ -75,7 +74,7 @@ public class QuickSort {
 
             }
         }
-        // Rekurzív
+        // Rekurziv
         if (low < j)
             quickSort(low, j);
         if (i < high)
